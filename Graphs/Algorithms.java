@@ -46,6 +46,58 @@ public class Algorithms {
         return dis;
     }
 
+    // * Floyd–Warshall is a multi-source shortest path algorithm that finds the
+    // shortest distances between every pair of nodes.
+    // * It also detects negative weight cycles.
+    // * The algorithm tries to improve the distance between every pair ((i, j)) by
+    // checking if going through a via (intermediate) node k gives a shorter path.
+    // * Update rule: cost[i][j] = min(cost[i][j], cost[i][k] + cost[k][j]).
+    // * We repeat this for all nodes (k) as the via node.
+    // * If at the end cost[i][i] < 0 for any node (i), the graph contains a
+    // negative cycle.
+    // Time Complexity: O(V^3)
+    // Space Complexity: O(V^2)
+    public static void floydsWarshall(int[][] matrix) {
+        int n = matrix.length;
+        // first checking values and if -1 change to infinite.
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == -1) {
+                    matrix[i][j] = (int) 1e9;
+                }
+                // diagonals are always 0.
+                if (i == j)
+                    matrix[i][j] = 0;
+            }
+        }
+
+        // perform algorithm.
+        for (int k = 0; k < n; k++) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    matrix[i][j] = Math.min(matrix[i][j], matrix[i][k] + matrix[k][j]);
+                }
+            }
+        }
+
+        // to find negative cycle.
+        for (int i = 0; i < n; i++) {
+            if (matrix[i][i] < 0) {
+                System.out.println("Negative Cycle Detected.");
+                return;
+            }
+        }
+
+        // make sure while returning infite to -1;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == (int) 1e9) {
+                    matrix[i][j] = -1;
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
 
     }
