@@ -1,6 +1,7 @@
 package Graphs;
 
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 public class Algorithms {
     // Bellman–Ford is used to find the shortest path from a single source to all
@@ -98,7 +99,57 @@ public class Algorithms {
         }
     }
 
+    // Prim’s Algorithm (Short Notes):
+    // Start from node 0 and pick the smallest-weight edge using a min-heap
+    // (priority queue).
+    // Add that edge to the MST if the node is not visited.
+    // Mark the node visited and push all its unvisited neighbours (with their edge
+    // weights) into the PQ.
+    // Keep picking the smallest edge that connects a new node until all nodes are
+    // covered.
+    // The total sum of all chosen edges is the MST weight.
+    // TC: O(E log V)
+    // SC: O(V + E)
+    public static int minSpanningTree(int v, ArrayList<ArrayList<ArrayList<Integer>>> adj) {
+
+        PriorityQueue<Pair> pq = new PriorityQueue<Pair>((x, y) -> x.wt - y.wt);
+        int[] vis = new int[v];
+        // starting node.
+        pq.add(new Pair(0, 0));
+        int sum = 0;
+        while (pq.size() > 0) {
+
+            int wt = pq.peek().wt;
+            int node = pq.peek().node;
+            pq.remove();
+
+            if (vis[node] == 1)
+                continue;
+            vis[node] = 1;
+            sum += wt;
+
+            for (int i = 0; i < adj.get(node).size(); i++) {
+                int adjWt = adj.get(node).get(i).get(0);
+                int adjNode = adj.get(node).get(i).get(1);
+                if (vis[adjNode] == 0) {
+                    pq.add(new Pair(adjWt, adjNode));
+                }
+            }
+        }
+        return sum;
+    }
+
     public static void main(String[] args) {
 
+    }
+}
+
+class Pair {
+    int wt;
+    int node;
+
+    Pair(int wt, int node) {
+        this.wt = wt;
+        this.node = node;
     }
 }
