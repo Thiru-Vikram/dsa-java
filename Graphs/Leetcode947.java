@@ -1,3 +1,5 @@
+import java.util.*;
+
 // Revision Notes – LeetCode 947
 // The idea is to treat each stone as a node. Two stones belong to the same component if they share either the same row or the same column. Use Disjoint Set (Union–Find) to group such stones.
 // For every stone:
@@ -17,14 +19,14 @@ class DisjointSet {
     ArrayList<Integer> parent = new ArrayList<>();
 
     DisjointSet(int n) {
-        for(int i=0; i<n; i++) {
+        for (int i = 0; i < n; i++) {
             rank.add(1);
             parent.add(i);
         }
     }
 
     public int findParent(int node) {
-        if(node == parent.get(node)) {
+        if (node == parent.get(node)) {
             return node;
         }
         int ult_parent = findParent(parent.get(node));
@@ -35,37 +37,38 @@ class DisjointSet {
     public void unionByRank(int u, int v) {
         int ult_u = findParent(u);
         int ult_v = findParent(v);
-        if(ult_u == ult_v) {
+        if (ult_u == ult_v) {
             return;
         }
-        if(rank.get(ult_u) < rank.get(ult_v)) {
+        if (rank.get(ult_u) < rank.get(ult_v)) {
             parent.set(ult_u, ult_v);
-        } else if(rank.get(ult_v) < rank.get(ult_u)) {
+        } else if (rank.get(ult_v) < rank.get(ult_u)) {
             parent.set(ult_v, ult_u);
         } else {
             parent.set(ult_v, ult_u);
             int rankU = rank.get(ult_u);
-            rank.set(ult_u, rankU+1);
+            rank.set(ult_u, rankU + 1);
         }
     }
 }
+
 class Leetcode947 {
     public int removeStones(int[][] stones) {
 
         int n = stones.length;
         DisjointSet ds = new DisjointSet(n);
 
-        for(int i=0; i<n; i++) {
-            for(int j=i+1; j<n; j++) {
-                if(stones[i][0] == stones[j][0] || stones[i][1] == stones[j][1]) {
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (stones[i][0] == stones[j][0] || stones[i][1] == stones[j][1]) {
                     ds.unionByRank(i, j);
                 }
             }
         }
 
         int cnt = 0;
-        for(int i=0; i<n; i++) {
-            if(ds.parent.get(i) == i) {
+        for (int i = 0; i < n; i++) {
+            if (ds.parent.get(i) == i) {
                 cnt++;
             }
         }

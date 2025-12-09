@@ -1,5 +1,3 @@
-package Graphs;
-
 import java.util.*;
 
 // Problem 1319: Number of Operations to Make Network Connected — Revision Note

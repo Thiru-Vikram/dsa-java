@@ -1,5 +1,3 @@
-package Graphs;
-
 public class Leetcode1334 {
 
     // Revision Note – Find the City With Minimum Reachable Neighbors

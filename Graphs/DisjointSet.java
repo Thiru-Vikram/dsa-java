@@ -1,5 +1,3 @@
-package Graphs;
-
 import java.util.*;
 
 class Edge implements Comparable<Edge> {
