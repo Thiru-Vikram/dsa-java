@@ -4,6 +4,22 @@ import java.util.Arrays;
 
 public class Introduction {
 
+    // DP = Dynamic Programming
+    // It's a problem-solving technique used to optimize recursive solutions by
+    // avoiding redundant calculations.
+    // Core Idea:
+    // Instead of solving the same subproblem multiple times, store the result and
+    // reuse it.
+    // Two Main Approaches:
+    // 1. Memoization (Top-Down)
+    // Start from the main problem, recursively break it down
+    // Store results in a cache (array/map) as you solve
+    // Check cache before computing
+    // 2. Tabulation (Bottom-Up)
+    // Start from base cases
+    // Build up solutions iteratively
+    // Fill a table (array) in order
+
     // 1. Pure Recursion
     public int fibonaci(int n) {
         if (n <= 1)
