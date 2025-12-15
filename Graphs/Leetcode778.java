@@ -1,6 +1,6 @@
 import java.util.*;
 
-class Leetcode778 {
+public class Leetcode778 {
     // Revision Note – LC 778: Swim in Rising Water
     // We need the minimum time required to move from (0,0) to (n-1,n-1) in an n × n
     // grid, where the time equals the maximum height encountered on the path.

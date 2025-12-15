@@ -53,7 +53,7 @@ class DisjointSet {
     }
 }
 
-class Leetcode827 {
+public class Leetcode827 {
     public int largestIsland(int[][] grid) {
         int n = grid.length;
         DisjointSet ds = new DisjointSet(n * n);

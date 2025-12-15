@@ -52,7 +52,7 @@ class DisjointSet {
     }
 }
 
-class Leetcode947 {
+public class Leetcode947 {
     public int removeStones(int[][] stones) {
 
         int n = stones.length;

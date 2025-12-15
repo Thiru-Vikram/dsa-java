@@ -47,7 +47,7 @@ class DisjointSet {
     }
 }
 
-class Leetcode721 {
+public class Leetcode721 {
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
 
         int n = accounts.size();

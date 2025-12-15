@@ -20,7 +20,7 @@ import java.util.*;
 // Space Complexity
 // O(V + E) for adjacency list + O(V) for arrays and recursion stack.
 
-class Solution {
+class LeetCode1192 {
     private int timer = 1;
 
     private void dfs(int node, int parent, int[] vis, ArrayList<ArrayList<Integer>> adj,
