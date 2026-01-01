@@ -1,6 +1,8 @@
-package SlidingWindow.Strings;
+package SlidingWindow.Arrays;
 
-// 209. Minimum Size Subarray Sum
+import java.util.HashMap;
+
+// 209. Minimum Size Subarray Sum len
 public class Leetcode209 {
 
     // brute force tc is o(n^2) and sc is o(1).
@@ -49,6 +51,31 @@ public class Leetcode209 {
         }
 
         return minLen == Integer.MAX_VALUE ? 0 : minLen;
+    }
+
+    // 325. Maximum Size Subarray Sum len.
+    // optimal tc is o(n) and sc is o(n).
+    public int maxSubArrayLen(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(0, -1); // Store first occurrence index
+
+        int maxLen = 0, presum = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            presum += nums[i];
+            int remove = presum - k;
+
+            if (map.containsKey(remove)) {
+                maxLen = Math.max(maxLen, i - map.get(remove));
+            }
+
+            // Only store first occurrence (for max length)
+            if (!map.containsKey(presum)) {
+                map.put(presum, i);
+            }
+        }
+
+        return maxLen;
     }
 
 }
