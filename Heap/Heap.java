@@ -49,6 +49,65 @@ public class Heap {
         }
     }
 
+    // tc is o(n/2) -> o(n) sc is o(1).
+    public static boolean minHeapOrNot(int[] arr) {
+        int n = arr.length;
+
+        // Start from the last non-leaf node
+        for (int i = (n / 2) - 1; i >= 0; i--) {
+            int lChild = (2 * i) + 1;
+            int rChild = (2 * i) + 2;
+
+            // idx < total idx && leftchild < parent
+            if (lChild < n && arr[lChild] < arr[i]) {
+                return false;
+            }
+
+            // idx < total idx && rightchild < parent
+            if (rChild < n && arr[rChild] < arr[i]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // tc is o(n) and sc is o(1).
+    public static void convertMinHeapToMaxHeap(int[] arr) {
+        int n = arr.length;
+        for (int i = (n / 2) - 1; i >= 0; i--) {
+            maxHeapifyIterative(arr, n, i);
+        }
+    }
+
+    private static void maxHeapifyIterative(int[] arr, int n, int i) {
+        while (i < n) {
+            int largest = i;
+            int left = 2 * i + 1;
+            int right = 2 * i + 2;
+
+            if (left < n && arr[left] > arr[largest]) {
+                largest = left;
+            }
+
+            if (right < n && arr[right] > arr[largest]) {
+                largest = right;
+            }
+
+            if (largest == i)
+                break;
+
+            swap(arr, i, largest);
+            i = largest;
+        }
+    }
+
+    private static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
     public static void main(String[] args) {
 
     }
