@@ -10,12 +10,12 @@ public class Introduction {
     // Core Idea:
     // Instead of solving the same subproblem multiple times, store the result and
     // reuse it.
-    // Two Main Approaches:
+    // Two Main Approaches: from ans to (0, 0) base
     // 1. Memoization (Top-Down)
     // Start from the main problem, recursively break it down
     // Store results in a cache (array/map) as you solve
     // Check cache before computing
-    // 2. Tabulation (Bottom-Up)
+    // 2. Tabulation (Bottom-Up): from (0 , 0) base to ans
     // Start from base cases
     // Build up solutions iteratively
     // Fill a table (array) in order
