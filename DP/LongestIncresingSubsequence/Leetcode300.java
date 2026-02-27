@@ -50,7 +50,7 @@ public class Leetcode300 {
             // return max in both
             len = Math.max(len, 1 + helper(idx + 1, idx, nums, dp));
         }
-        return len;
+        return dp[idx][prev_idx + 1] = len;
     }
 
     public int lengthOfLIS2(int[] nums) {
