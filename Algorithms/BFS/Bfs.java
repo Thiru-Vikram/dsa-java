@@ -1,4 +1,4 @@
-package Algorithms;
+package Algorithms.BFS;
 
 import java.util.*;
 
@@ -107,18 +107,18 @@ public class Bfs {
     // CORE STRUCTURE never changes! ✅
 
     // tree
-    //     1
-    //    / \
-    //   2   3
-    //  / \   \
-    // 4   5   6
+    // 1
+    // / \
+    // 2 3
+    // / \ \
+    // 4 5 6
 
-    // BFS visits: 1→2→3→4→5→6   (level by level)
-    // DFS visits: 1→2→4→5→3→6   (deep first)
+    // BFS visits: 1→2→3→4→5→6 (level by level)
+    // DFS visits: 1→2→4→5→3→6 (deep first)
 
     // graph
     // 1 — 2 — 3
-    // |       |
+    // | |
     // 4 — 5 — 6
 
     // BFS from 1: 1→2→4→3→5→6
