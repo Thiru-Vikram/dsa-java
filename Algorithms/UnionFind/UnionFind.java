@@ -4,6 +4,15 @@ import java.util.*;
 
 // this is called disjoint set there are two ways to implement it byrank, bysize
 // i have used here bysize it stores the no of nodes in each components
+//
+// TIME COMPLEXITY (per operation):
+//   - findParent : O(alpha(n)) ~ O(1) amortized  [path compression]
+//   - union      : O(alpha(n)) ~ O(1) amortized  [union by size + path compression]
+//   - countComponents: O(n)   [scans all nodes once]
+//   alpha(n) = inverse Ackermann function, practically constant for all real inputs
+
+// SPACE COMPLEXITY: O(n)
+//   - parent and size arraylists each store n elements
 class UnionFind {
 
     ArrayList<Integer> parent = new ArrayList<>();
@@ -65,5 +74,19 @@ class UnionFind {
             size.set(ulp_u, size.get(ulp_u) + size.get(ulp_v)); // update u's root size
         }
         return true; // merge successful
+    }
+
+    // counts the number of distinct connected components in the graph
+    // a node is a root of its component if parent[node] == node
+    // so we just count how many nodes are their own parent
+    // example: n=5, after union(0,1) and union(2,3):
+    // roots are: 0 (for {0,1}), 2 (for {2,3}), 4 (alone) -> 3 components
+    public int countComponents() {
+        int count = 0;
+        for (int i = 0; i < parent.size(); i++) {
+            if (parent.get(i) == i)
+                count++; // this node is a root
+        }
+        return count;
     }
 }

@@ -1,34 +1,42 @@
 package Algorithms.UnionFind;
 
 // PROBLEM: Given n nodes (0 to n-1) and a list of edges, determine if they form a valid tree.
-//
+
 // A valid tree must satisfy TWO conditions:
 //   1. No cycles
 //   2. All nodes are connected (only one component)
-//
+
 // WHY UNION-FIND works here:
 //   Union-Find is perfect for problems that ask about connectivity and cycle detection in a graph.
 //   - It tracks which nodes belong to the same component.
 //   - When we try to union two nodes that are already in the same component,
 //     it means adding that edge would create a cycle -> not a valid tree.
-//
+
 // KEY INSIGHT:
 //   A graph with n nodes is a valid tree if and only if:
-//     1. It has EXACTLY n-1 edges
-//        - fewer edges -> graph is disconnected (multiple components)
-//        - more edges  -> graph must have a cycle
-//     2. None of those n-1 edges create a cycle
-//
-//   So the check is simple:
-//     - First guard: if edges.length != n-1, immediately return false
-//     - Then process each edge with union-find: if any edge connects two already-connected
-//       nodes, a cycle exists -> return false
-//     - If all edges are processed without a cycle, the graph is a valid tree
-//
+//  1. It has EXACTLY n-1 edges
+//      - fewer edges -> graph is disconnected (multiple components)
+//     - more edges  -> graph must have a cycle
+//  2. None of those n-1 edges create a cycle
+
+// So the check is simple:
+// - First guard: if edges.length != n-1, immediately return false
+// - Then process each edge with union-find: if any edge connects two already-connected
+// nodes, a cycle exists -> return false
+// - If all edges are processed without a cycle, the graph is a valid tree
+
 // WHY NOT DFS/BFS?
-//   DFS/BFS also works, but Union-Find is more elegant here because:
-//   - Cycle detection is O(alpha(n)) ~ O(1) per edge with path compression + union by size
-//   - No need to build an adjacency list, works directly on the edges array
+//  DFS/BFS also works, but Union-Find is more elegant here because:
+//  - Cycle detection is O(alpha(n)) ~ O(1) per edge with path compression + union by size
+//  - No need to build an adjacency list, works directly on the edges array
+
+// TIME COMPLEXITY:  O(n + E * alpha(n))
+//  - O(n) : UnionFind initialization
+// - O(E * alpha(n)): loop over E edges, each union is nearly O(1)
+// - Since a valid tree has E = n-1, this simplifies to O(n * alpha(n)) ~ O(n)
+
+// SPACE COMPLEXITY: O(n)
+//  - parent and size arraylists each of size n
 
 public class ValidGraphTree {
 
