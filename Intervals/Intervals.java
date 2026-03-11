@@ -1,4 +1,4 @@
-package Basics;
+package Intervals;
 
 import java.util.*;
 
