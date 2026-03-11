@@ -65,24 +65,50 @@ public class Intervals {
         return result.toArray(new int[result.size()][]);
     }
 
-    // remove intervals func
-    // int[][] activities = {{1,3}, {2,5}, {4,6}, {6,7}};
-    // Selected Activities: [1, 3] [4, 6] [6, 7]
-    // tc is o(n log n) sc is o(n)
-    public static List<int[]> activitySelection(int[][] activities) {
-        Arrays.sort(activities, (a, b) -> a[1] - b[1]);
+    // Count removed intervals (Erase Overlap Intervals)
+    // TC: O(n log n) SC: O(1)
+    public int eraseOverlapIntervals(int[][] intervals) {
+
+        // Sort by end time
+        Arrays.sort(intervals, (a, b) -> a[1] - b[1]);
+
+        int n = intervals.length;
+        int cnt = 0;
+        int lastEnd = intervals[0][1];
+
+        for (int i = 1; i < n; i++) {
+            if (intervals[i][0] < lastEnd) {
+                // Overlap → remove, increment count
+                cnt++;
+            } else {
+                // No overlap → update end time
+                lastEnd = intervals[i][1];
+            }
+        }
+        return cnt;
+    }
+
+    // Print kept intervals (Activity Selection)
+    // TC: O(n log n) SC: O(n)
+    public List<int[]> activitySelection(int[][] intervals) {
+
+        // Sort by end time
+        Arrays.sort(intervals, (a, b) -> a[1] - b[1]);
 
         List<int[]> result = new ArrayList<>();
-        result.add(activities[0]);
-        int lastEnd = activities[0][1];
+        result.add(intervals[0]); // Always keep first interval
 
-        for (int i = 1; i < activities.length; i++) {
-            if (activities[i][0] >= lastEnd) {
-                result.add(activities[i]);
-                lastEnd = activities[i][1];
+        int n = intervals.length;
+        int lastEnd = intervals[0][1];
+
+        for (int i = 1; i < n; i++) {
+            if (intervals[i][0] >= lastEnd) {
+                // No overlap → keep this interval
+                result.add(intervals[i]);
+                lastEnd = intervals[i][1];
             }
+            // Overlap → skip silently
         }
         return result;
     }
-
 }
