@@ -130,4 +130,78 @@ public class SingleLinkedList {
 
     }
 
+    // two pointer approach with a gap of n between fast and slow
+    // when fast reaches the last node, slow is just before the target node
+    // tc is o(n) sc is o(1)
+    public static Node removeNthNodeFromEnd(Node head, int n) {
+
+        Node fast = head;
+        Node slow = head;
+        // keeping fast at n node distance slow at head
+        for (int i = 0; i < n; i++) {
+            fast = fast.next;
+        }
+
+        // when fast is null means nth node and len of LL is same
+        // means delete head return head.next
+        if (fast == null)
+            return head.next;
+
+        // moving both one by one
+        while (fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        // connecting the next to next.next
+        slow.next = slow.next.next;
+
+        return head;
+    }
+
+    // tc and sc is o(n) and o(1)
+    public void reorderList(Node head) {
+
+        if (head == null || head.next == null)
+            return;
+
+        // Find middle: slow moves 1 step, fast moves 2 steps.
+        // After loop, slow points to end of first half.
+        Node fast = head; // fast runner
+        Node slow = head; // slow runner
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // Split list into two parts:
+        // first half: head ... slow
+        // second half: second ... end
+        Node second = slow.next; // head of second half before reverse
+        slow.next = null; // cut connection to avoid cycle
+
+        // Reverse second half.
+        Node prev = null; // previous node during reverse
+        while (second != null) {
+            Node next = second.next; // save next node
+            second.next = prev; // reverse pointer
+            prev = second; // move prev forward
+            second = next; // move second forward
+        }
+
+        // Merge alternately: L0 -> Ln -> L1 -> Ln-1 ...
+        Node first = head; // pointer in first half
+        Node secondHalf = prev; // pointer in reversed second half
+        while (secondHalf != null) {
+            Node next1 = first.next; // next node from first half
+            Node next2 = secondHalf.next; // next node from second half
+
+            first.next = secondHalf; // link one from second half
+            secondHalf.next = next1; // link back to first half chain
+
+            first = next1; // move first pointer
+            secondHalf = next2; // move second pointer
+        }
+
+    }
+
 }
