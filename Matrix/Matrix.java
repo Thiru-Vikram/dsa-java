@@ -109,4 +109,94 @@ public class Matrix {
         return result;
     }
 
+    // Rotate a square matrix 90 degree clockwise in-place.
+    // Mapping: (i, j) -> (j, n - 1 - i)
+    // Steps: transpose, then reverse each row.
+    // TC: O(n * n), SC: O(1)
+    public static void rotate(int[][] matrix) {
+
+        int n = matrix.length;
+        if (n == 0 || matrix[0].length != n)
+            return;
+
+        // transpose
+        for (int i = 0; i < n; i++) {
+            // j starts at i, not 0 (avoids double-swapping)
+            for (int j = i; j < n; j++) {
+
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
+            }
+        }
+
+        // reverse each row
+        for (int i = 0; i < n; i++) {
+            // only go halfway (avoids re-swapping)
+            for (int j = 0; j < n / 2; j++) {
+
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[i][n - 1 - j];
+                matrix[i][n - 1 - j] = temp;
+            }
+        }
+    }
+
+    // Word Search is worse because at each cell you explore 4 directions
+    // recursively up to word length L
+    // TC: O(M×N × 4^L)
+    // SC: O(M×N) ← vis array + recursion stack depth = L
+    private boolean dfsCheck(int row, int col, char[][] board,
+            String word, boolean[][] vis, int index) { // idx of char
+        // all char matched
+        if (index == word.length())
+            return true;
+
+        int m = board.length;
+        int n = board[0].length;
+
+        // mark visted
+        vis[row][col] = true;
+
+        int[][] dir = { { -1, 0 }, { 1, 0 }, { 0, 1 }, { 0, -1 } };
+
+        for (int[] neigh : dir) {
+            int newRow = row + neigh[0];
+            int newCol = col + neigh[1];
+
+            if (newRow < m && newRow >= 0 &&
+                    newCol < n && newCol >= 0 &&
+                    !vis[newRow][newCol] &&
+                    board[newRow][newCol] == word.charAt(index)) { // check char match
+
+                if (dfsCheck(newRow, newCol, board, word, vis, index + 1)) {
+                    vis[row][col] = false; // mark unvisted for purpose of next path
+                    return true;
+                }
+            }
+        }
+
+        // for this path u didnt find it so reuse it for next path
+        vis[row][col] = false;
+        return false;
+    }
+
+    public boolean exist(char[][] board, String word) {
+        int m = board.length;
+        int n = board[0].length;
+
+        // no fixed start point so start from every cell
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                // Only start DFS if first char matches
+                if (board[i][j] == word.charAt(0)) {
+                    boolean[][] vis = new boolean[m][n];
+                    if (dfsCheck(i, j, board, word, vis, 1)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }
