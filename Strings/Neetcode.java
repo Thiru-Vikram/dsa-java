@@ -59,4 +59,88 @@ public class Neetcode {
         return maxLen;
     }
 
+    // 76. Minimum Window Substring
+    // tc is o(n + m) and sc is o(1)
+    public static String minString(String s, String t) {
+
+        int n = s.length();
+        int m = t.length();
+        if (m == 0 || m > n)
+            return "";
+
+        int minLen = Integer.MAX_VALUE;
+        int startIdx = -1;
+        int[] hash = new int[256]; // need[c] = how many of char c are still required
+        int count = 0; // number of matched chars from t inside current window
+        int l = 0, r = 0;
+
+        // Build requirement table from t.
+        for (int i = 0; i < m; i++) {
+            hash[t.charAt(i)]++;
+        }
+
+        // Meaning of need table during sliding window:
+        // need[c] > 0 : still need this char
+        // need[c] == 0: exact requirement met
+        // need[c] < 0 : extra occurrence present in window
+
+        while (r < n) {
+
+            // check this char needed then cnt++
+            if (hash[s.charAt(r)] > 0) {
+                count++;
+            }
+            // again reduce it
+            hash[s.charAt(r)]--;
+
+            // If all m required chars are matched, try shrinking from left.
+            while (count == m) {
+
+                // Update best answer with current valid window.
+                if (r - l + 1 < minLen) {
+                    minLen = r - l + 1;
+                    startIdx = l;
+                }
+
+                // Remove s[l] from window and give it back to need table.
+                // If need becomes > 0, window is no longer valid.
+                hash[s.charAt(l)]++;
+                if (hash[s.charAt(l)] > 0) {
+                    count--;
+                }
+                l++; // shrink from left
+            }
+            r++; // expand to next right char
+        }
+
+        return startIdx == -1 ? "" : s.substring(startIdx, startIdx + minLen);
+    }
+
+    // 242. Valid Anagram
+    // tip :- only small or capital -> 26 or mix -> 256 for array size
+    // tc is o(n + m) sc is o(1)
+    public static boolean isAnagram(String s, String t) {
+
+        int n = s.length();
+        int m = t.length();
+        if (n != m)
+            return false;
+
+        int[] hash = new int[26];
+
+        for (int i = 0; i < n; i++) {
+            hash[s.charAt(i) - 'a']++;
+        }
+        for (int i = 0; i < m; i++) {
+            hash[t.charAt(i) - 'a']--;
+        }
+
+        for (int i : hash) {
+            if (i != 0)
+                return false;
+        }
+
+        return true;
+    }
+
 }
