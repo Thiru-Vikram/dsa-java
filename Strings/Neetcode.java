@@ -1,5 +1,9 @@
 package Strings;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class Neetcode {
 
     // Longest Substring Without Repeating Characters
@@ -141,6 +145,46 @@ public class Neetcode {
         }
 
         return true;
+    }
+
+    // 49. Group Anagrams
+    // tc is o(n * k) sc is o(n * k) — stores all strings in the map
+    public static List<List<String>> groupAnagrams(String[] strs) {
+
+        if (strs == null || strs.length == 0) {
+            return new ArrayList<>();
+        }
+
+        HashMap<String, List<String>> map = new HashMap<>();
+
+        for (String s : strs) {
+            // Frequency array: count each char
+            char[] ch = new char[26];
+            for (char c : s.toCharArray()) {
+                ch[c - 'a']++;
+            }
+            // Unique key from frequency pattern
+            String key = String.valueOf(ch);
+
+            if (!map.containsKey(key)) {
+                map.put(key, new ArrayList<>());
+            }
+            map.get(key).add(s);
+        }
+        return new ArrayList<>(map.values());
+    }
+
+    public static void main(String[] args) {
+
+        String[] arr = { "eat", "tea", "tan", "ate", "nat", "bat" };
+
+        List<List<String>> ans = groupAnagrams(arr);
+        for (int i = 0; i < ans.size(); i++) {
+            for (int j = 0; j < ans.get(i).size(); j++) {
+                System.out.print(ans.get(i).get(j) + " ");
+            }
+            System.out.println();
+        }
     }
 
 }
