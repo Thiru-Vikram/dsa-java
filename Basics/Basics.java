@@ -4,6 +4,22 @@ import java.util.*;
 
 public class Basics {
 
+    // Use Integer.toString(n)
+    // to convert complete num to String
+    int num = 123;
+    String val = Integer.toString(num);
+    // ans -> "123"
+
+    // use ch - '0';
+    // to convert char num to int
+    char ch = '2';
+    int val1 = ch - '0';
+    // ans -> 2
+
+    // starting ascii values
+    // 'a' (lowercase): 97
+    // 'A' (uppercase): 65
+
     // (char) 67 int → char: gives 'C' (ASCII 67)
     // (int) 'C' char → int: gives 67
 
