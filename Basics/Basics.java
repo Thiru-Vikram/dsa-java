@@ -57,17 +57,6 @@ public class Basics {
     // "abc"
     // Count is also 2ⁿ but order is preserved
 
-    // Substrings
-    // Continuous/adjacent characters only
-    // From "abc":
-    // "a"
-    // "b"
-    // "c"
-    // "ab" ← continuous ✅
-    // "bc" ← continuous ✅
-    // "abc" ← continuous ✅
-    // "ac" ← NOT a substring ❌ (not adjacent)
-
     // generate all the permutaions of string
     // "abc" -> abc acb bac bca cba cab
     public static String swap(String s, int i, int j) {
@@ -102,6 +91,29 @@ public class Basics {
             cnt *= 20; // changing unit place value
         }
         return sum;
+    }
+
+    public static void main(String[] args) {
+
+        // Substrings
+        // Continuous/adjacent characters only
+        // From "abc":
+        // "a"
+        // "b"
+        // "c"
+        // "ab" ← continuous ✅
+        // "bc" ← continuous ✅
+        // "abc" ← continuous ✅
+        // "ac" ← NOT a substring ❌ (not adjacent)
+
+        // generate all the substrings
+        String s = "1234";
+        int n = s.length();
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                System.out.print(s.substring(i, j + 1));
+            }
+        }
     }
 
 }
