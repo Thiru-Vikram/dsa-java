@@ -93,6 +93,19 @@ public class Basics {
         return sum;
     }
 
+    // reverse integer
+    public static int reverseInt(int num) {
+        int res = 0;
+
+        while (num != 0) {
+            int digit = num % 10;
+            res = (res * 10) + digit;
+            num = num / 10;
+        }
+
+        return res;
+    }
+
     public static void main(String[] args) {
 
         // Substrings
