@@ -31,7 +31,6 @@ public class Basics {
     // used in incresing frequency prob
     // ch - 'a' -> gives pos
     // 'C' - 'A' -> gives 2 (position in alphabet, 0-indexed)
-    // '5' - '0' -> gives 5 (digit char → actual int value)
 
     // int → char (get letter from position):
     // (char)('A' + 2) -> gives 'C'
