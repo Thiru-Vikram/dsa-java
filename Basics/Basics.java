@@ -28,6 +28,8 @@ public class Basics {
     // (int) 'C' char → int: gives 67
 
     // char → int (get numeric position):
+    // used in incresing frequency prob
+    // ch - 'a' -> gives pos
     // 'C' - 'A' -> gives 2 (position in alphabet, 0-indexed)
     // '5' - '0' -> gives 5 (digit char → actual int value)
 
