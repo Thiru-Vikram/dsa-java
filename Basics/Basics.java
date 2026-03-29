@@ -10,6 +10,10 @@ public class Basics {
     String val = Integer.toString(num);
     // ans -> "123"
 
+    int[] arr = {1,2,3};
+    // to use any hasmap prob unique arr string
+    String arrStr = Arrays.toString(arr);
+    
     // use ch - '0';
     // to convert char num to int
     char ch = '2';
