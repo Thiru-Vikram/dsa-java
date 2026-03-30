@@ -11,11 +11,11 @@
 # Intermediate (Non-Linear)
 6. Hash Table / HashMap / HashSet
 7. Tree
-  1. Binary Tree
-  2. Binary Search Tree (BST)
-  3. AVL Tree
-  4. Segment Tree
-  5. Fenwick Tree (BIT)
+   -> Binary Tree
+   -> Binary Search Tree (BST)
+   -> AVL Tree
+   -> Segment Tree
+   -> Fenwick Tree (BIT)
 8. Heap (Min Heap, Max Heap)
 9. Trie (Prefix Tree)
 10. Graph (Directed, Undirected, Weighted)
