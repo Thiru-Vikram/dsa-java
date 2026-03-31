@@ -1,22 +1,32 @@
-# 📚 DSA Algorithm Roadmap — Must Know Algorithms
+# DSA Algorithm Roadmap — Must Know Algorithms
 
-## 🗺️ Table of Contents
+# Foundation (Linear)
+1. Array
+2. String
+3. Linked List (Singly, Doubly, Circular)
+4. Stack
+5. Queue (Simple, Circular, Deque, Priority Queue)
 
-- [Priority Order](#-priority-order-to-learn)
-- [Cheat Sheet](#-cheat-sheet)
-- [1. Sorting](#1-sorting)
-- [2. Searching](#2-searching)
-- [3. Traversal — BFS & DFS](#3-traversal--bfs--dfs)
-- [4. Graph Algorithms](#4-graph-algorithms)
-- [5. Dynamic Programming](#5-dynamic-programming)
-- [6. Tree Algorithms](#6-tree-algorithms)
-- [7. Sliding Window & Two Pointers](#7-sliding-window--two-pointers)
-- [8. Greedy](#8-greedy)
-- [9. Backtracking](#9-backtracking)
-- [10. Data Structures](#10-data-structures-to-know)
-- [How to Revise](#-how-to-revise)
 
----
+# Intermediate (Non-Linear)
+6. Hash Table / HashMap / HashSet
+7. Tree
+   -> Binary Tree
+   -> Binary Search Tree (BST)
+   -> AVL Tree
+   -> Segment Tree
+   -> Fenwick Tree (BIT)
+8. Heap (Min Heap, Max Heap)
+9. Trie (Prefix Tree)
+10. Graph (Directed, Undirected, Weighted)
+
+
+# Advanced
+11. Disjoint Set / Union-Find
+12. Monotonic Stack / Queue
+13. Sparse Table
+14. Suffix Array / Suffix Tree
+15. LRU / LFU Cache (design-based)
 
 ## 🚀 Priority Order to Learn
 
