@@ -2,6 +2,12 @@ package Trees.BinaryTree;
 
 import java.util.*;
 
+// Recursion or iterative sol which is optimal?
+// For balanced or small trees: Recursive is preferred — cleaner, easier to read, 
+// and has the same asymptotic efficiency.
+// For large or skewed trees (deep trees): Iterative is optimal — avoids stack overflow 
+// and gives more control over memory usage.
+
 public class Node {
 
     int val;
@@ -42,7 +48,7 @@ public class Node {
         List<Integer> ans = new ArrayList<>();
         Stack<Node> st = new Stack<>();
 
-        // adding root to st
+        // offer(root)ing root to st
         if (root == null)
             return ans;
         st.push(root);
@@ -88,6 +94,32 @@ public class Node {
         inorder(root.right, ans);
     }
 
+    // iterative sol same tc and sc
+    public List<Integer> inorderTraversal2(Node root) {
+
+        List<Integer> ans = new ArrayList<>();
+        Stack<Node> st = new Stack<>();
+        Node node = root; // get node
+
+        // we there is node at left go left left left most
+        while (true) {
+            if (node != null) {
+                st.push(node); // offer(root) to stack
+                node = node.left; // move left
+            } else { // once reached left most node with no left again
+                if (st.isEmpty()) {
+                    break;
+                }
+                node = st.pop(); // pop that
+                ans.add(node.val); // offer(root) val to ans
+                node = node.right; // move right
+                // by this u offer(root) left > root > right
+            }
+        }
+
+        return ans;
+    }
+
     // postorder Traversal recursion sol
     // TC: O(n) - where n is the number of nodes, each node is visited exactly once
     // SC: O(h) - where h is the height of the tree (recursion call stack)
@@ -105,6 +137,61 @@ public class Node {
         postorder(root.left, ans);
         postorder(root.right, ans);
         ans.add(root.val);
+    }
+
+    // same tc and sc same
+    public List<Integer> postorderTraversal2(Node root) {
+
+        List<Integer> ans = new ArrayList<>();
+        Stack<Node> st = new Stack<>();
+        Node curr = null;
+        Node lastVisited = null;
+
+        while (curr != null || !st.isEmpty()) {
+            if (curr != null) {
+                st.push(curr);
+                curr = curr.left;
+            } else {
+                Node peekNode = st.peek();
+                if (peekNode.right != null && lastVisited != peekNode.right) {
+                    curr = peekNode.right;
+                } else {
+                    ans.add(peekNode.val);
+                    lastVisited = st.pop();
+                }
+            }
+        }
+        return ans;
+    }
+
+    // tc and sc is o(n)
+    public List<List<Integer>> levelorderTraversal(Node root) {
+
+        List<List<Integer>> ans = new ArrayList<>();
+        Queue<Node> q = new LinkedList<>();
+
+        if (root == null)
+            return ans;
+        q.offer(root);
+
+        while (!q.isEmpty()) {
+
+            int len = q.size();
+            List<Integer> subList = new ArrayList<>();
+
+            for (int i = 0; i < len; i++) {
+                if (q.peek().left != null) {
+                    q.offer(q.peek().left);
+                }
+                if (q.peek().right != null) {
+                    q.offer(q.peek().right);
+                }
+                subList.add(q.peek().val);
+            }
+            ans.add(subList);
+        }
+
+        return ans;
     }
 
     public static void main(String[] args) {
