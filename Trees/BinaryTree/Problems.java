@@ -1,8 +1,5 @@
 package Trees.BinaryTree;
 
-import java.util.*;
-import Trees.BinaryTree.Node;
-
 // for traversal u can use recursion or levelorder its our wish but generaly
 // peaople use recursion because in any problem we dont get the skwed tree.
 public class Problems {
@@ -48,6 +45,69 @@ public class Problems {
             return -1;
         }
         return 1 + Math.max(leftHeight, rightHeight);
+    }
+
+    // invert binary tree leetcode 226
+    // tc is o(n) sc is o(h)
+    // algo is check node is null means leave
+    // else swap left with right side.
+    public Node invertTree(Node root) {
+        if (root == null)
+            return null;
+
+        // swap left with right
+        Node temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+
+        invertTree(root.left); // do for left side
+        invertTree(root.right); // do for right side
+
+        return root;
+    }
+
+    // The diameter of a binary tree is the length of the
+    // longest path between any two nodes in the tree.
+    // skew tree example
+    // 1
+    // /
+    // 2
+    // /
+    // 3
+    // /
+    // 4
+    // Diameter = 3 (path: 4 → 3 → 2 → 1)
+
+    // tc is o(n) sc is o(h)
+    public int diameterOfBinaryTree(Node root) {
+        int[] diameter = new int[1];
+        helper(root, diameter);
+        return diameter[0];
+    }
+
+    private int helper(Node root, int[] diameter) {
+        if (root == null)
+            return 0;
+
+        int leftH = helper(root.left, diameter); // left height
+        int rightH = helper(root.right, diameter); // right height
+        diameter[0] = Math.max(diameter[0], leftH + rightH);
+        // Return height of THIS node (max of children + 1)
+        return Math.max(leftH, rightH) + 1;
+    }
+
+    // check binary tree is identical or not
+    // tc is o(min(p, q)) cause stops at first mismatch
+    // sc is o(min(h1, h2))
+    public boolean isIdentical(Node p, Node q) {
+        if (p == null && q == null)
+            return false;
+        if (p == null || q == null)
+            return false;
+
+        return (p.val == q.val) &&
+                isIdentical(p.left, q.left) &&
+                isIdentical(p.right, q.right);
     }
 
     public static void main(String[] args) {
