@@ -164,6 +164,10 @@ public class Node {
         return ans;
     }
 
+    // Level 0: 1 (left → right)
+    // Level 1: 2, 3 (left → right)
+    // Level 2: 4, 5, 6, 7 (left → right)
+    // Result: [1, 2, 3, 4, 5, 6, 7]
     // tc and sc is o(n)
     public List<List<Integer>> levelorderTraversal(Node root) {
 
@@ -180,18 +184,59 @@ public class Node {
             List<Integer> subList = new ArrayList<>();
 
             for (int i = 0; i < len; i++) {
-                if (q.peek().left != null) {
-                    q.offer(q.peek().left);
+                Node node = q.poll();
+                if (node.left != null) {
+                    q.offer(node.left);
                 }
-                if (q.peek().right != null) {
-                    q.offer(q.peek().right);
+                if (node.right != null) {
+                    q.offer(node.right);
                 }
-                subList.add(q.peek().val);
+                subList.add(node.val);
             }
             ans.add(subList);
         }
 
         return ans;
+    }
+
+    // Level 0: 1 (left → right) →
+    // Level 1: 3, 2 (left ← right ) ←
+    // Level 2: 4, 5, 6, 7 (left → right) →
+    // Result: [[1], [3, 2], [4, 5, 6, 7]]
+    // tc is o(n) sc is o(w) width of tree at each row
+    public List<List<Integer>> zigzagOrderTraversal(Node root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        Queue<Node> q = new LinkedList<>();
+
+        if (root == null)
+            return ans;
+        q.offer(root);
+        boolean leftToRight = true;
+
+        while (!q.isEmpty()) {
+            int len = q.size();
+            List<Integer> subList = new ArrayList<>();
+
+            for (int i = 0; i < len; i++) {
+                Node node = q.poll();
+
+                if (leftToRight) {
+                    subList.add(node.val);
+                } else {
+                    subList.add(0, node.val); // add front to get reverse order
+                }
+                if (node.left != null) {
+                    q.offer(node.left);
+                }
+                if (node.right != null) {
+                    q.offer(node.right);
+                }
+            }
+            ans.add(subList);
+            leftToRight = !leftToRight; // change direction
+        }
+        return ans;
+
     }
 
     public static void main(String[] args) {
