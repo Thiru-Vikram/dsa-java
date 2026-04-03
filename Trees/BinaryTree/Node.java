@@ -239,6 +239,59 @@ public class Node {
 
     }
 
+    // right side view of of bt
+    // tc is o(n) sc is o(h)
+    public List<Integer> rightSideView(Node root) {
+        List<Integer> ans = new ArrayList<>();
+        rightView(root, ans, 0);
+        return ans;
+    }
+
+    private void rightView(Node root, List<Integer> ans, int level) {
+        if (root == null)
+            return;
+        if (ans.size() == level)
+            ans.add(root.val);
+        rightView(root.right, ans, level + 1); // right first
+        rightView(root.left, ans, level + 1); // then left
+    }
+
+    // left side view of bt
+    // tc is o(n) sc is o(h)
+    public List<Integer> leftSideView(Node root) {
+        List<Integer> ans = new ArrayList<>();
+        leftView(root, ans, 0);
+        return ans;
+    }
+
+    private void leftView(Node root, List<Integer> ans, int level) {
+        if (root == null)
+            return;
+        if (ans.size() == level)
+            ans.add(root.val);
+        leftView(root.left, ans, level + 1); // left first
+        leftView(root.right, ans, level + 1); // then right
+    }
+
+    // check bt is symmetric means left and right side is mirror
+    // tc is o(n) sc is o(h), leetcode 101
+    public boolean isSymmetric(Node root) {
+        if (root == null)
+            return true;
+        return symmetricCheck(root.left, root.right);
+    }
+
+    private boolean symmetricCheck(Node left, Node right) {
+        if (left == null || right == null) {
+            return left == right;
+        }
+        if (left.val != right.val)
+            return false;
+
+        return symmetricCheck(left.left, right.right) &&
+                symmetricCheck(left.right, right.left);
+    }
+
     public static void main(String[] args) {
 
     }

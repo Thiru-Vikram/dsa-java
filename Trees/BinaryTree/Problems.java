@@ -204,6 +204,19 @@ public class Problems {
         return ans;
     }
 
+    // leetcode 112 path sum given target need to find path sum
+    // root to leaft = target sum
+    public boolean pathSum(Node root, int target) {
+        if (root == null)
+            return false;
+        if (root.left == null && root.right == null) {
+            return target == root.val;
+        }
+        boolean leftSum = pathSum(root.left, target - root.val);
+        boolean rightSum = pathSum(root.right, target - root.val);
+        return leftSum || rightSum;
+    }
+
     public static void main(String[] args) {
 
     }
