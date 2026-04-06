@@ -193,6 +193,85 @@ public class Intro {
         return leftSum || rightSum;
     }
 
+    // we use level order + col numbers to get ans
+    // Top View: for each horizontal column, keep the FIRST node seen (topmost)
+    // TC: O(n log n) — n nodes, TreeMap operations cost log n
+    // SC: O(n) — queue + map
+    public List<Integer> topViewBT(Node root) {
+
+        List<Integer> ans = new ArrayList<>();
+        if (root == null)
+            return ans;
+
+        // stores (col, node.val)
+        Map<Integer, Integer> treeMap = new TreeMap<>();
+        // stores (node, col)
+        Queue<Object[]> q = new LinkedList<>();
+        // starting node root, col is 0 left -1, -2; right side 1, 2
+        q.offer(new Object[] { root, 0 }); // push into q
+
+        while (!q.isEmpty()) {
+            Object[] pair = q.poll();
+            Node node = (Node) pair[0];
+            int col = (int) pair[1];
+
+            // checking is there any prev ele with same col
+            // if yes skip else add by this u get all the first ele each col
+            // in the bt called top view
+            if (!treeMap.containsKey(col)) {
+                treeMap.put(col, node.val);
+            }
+
+            // push curr node children into q
+            // go for left from root -1, -2 ..
+            if (node.left != null)
+                q.offer(new Object[] { node.left, col - 1 });
+            // go right from root 1, 2, ...
+            if (node.right != null)
+                q.offer(new Object[] { node.right, col + 1 });
+
+        }
+        // adding all values of tree which is ans
+        // also sorted cause we used tree there
+        ans.addAll(treeMap.values());
+
+        return ans;
+    }
+
+    // TC: O(n) — each node visited once
+    // SC: O(w) — map stores unique columns (worst O(n) if all nodes differ in
+    // columns)
+    // Top view -> if(!colMap.containsKey(col)) — skip if already filled
+    // Bottom view -> colMap.put(col, node.val) — always overwrite
+    public List<Integer> bottomViewBT(Node root) {
+        List<Integer> ans = new ArrayList<>();
+        if (root == null)
+            return ans;
+
+        Map<Integer, Integer> treeMap = new HashMap<>();
+        Queue<Object[]> q = new LinkedList<>();
+        q.offer(new Object[] { root, 0 });
+
+        while (!q.isEmpty()) {
+            Object[] pair = q.poll();
+            Node node = (Node) pair[0];
+            int col = (int) pair[1];
+
+            // overwrite always so at last u get bottom most node
+            // that is the ans
+            treeMap.put(col, node.val);
+
+            if (node.left != null) {
+                q.offer(new Object[] { node.left, col - 1 });
+            }
+            if (node.right != null) {
+                q.offer(new Object[] { node.right, col + 1 });
+            }
+        }
+        ans.addAll(treeMap.values());
+        return ans;
+    }
+
     public static void main(String[] args) {
 
     }

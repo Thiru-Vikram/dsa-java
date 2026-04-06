@@ -3,8 +3,6 @@ package Trees.BinaryTree;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.tree.TreeNode;
-
 public class Problems {
 
     // tc is o(n) all nodes visit once
