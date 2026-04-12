@@ -84,6 +84,8 @@ public class Problems {
 
     }
 
+    // Count nodes in Complete Binary Tree — LC 222, has a O(log²n) trick
+
     public static void main(String[] args) {
 
     }
