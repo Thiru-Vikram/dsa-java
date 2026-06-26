@@ -4,6 +4,9 @@ package Neetcode150.Graphs;
 // here we use dfs cause we need to traverse deep
 // ans is we need to visit each cell and if it is land and not visted means we found 1, and then call the dfs to mark all the neighbour cells as visited and then return cnt
 
+// Time Complexity: O(m × n)
+// Space Complexity: O(m × n) (worst case)
+
 // 200. Number of Islands
 public class Leetcode200 {
 
