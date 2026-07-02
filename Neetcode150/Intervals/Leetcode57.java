@@ -1,6 +1,5 @@
 package Neetcode150.Intervals;
 
-// 57. Insert Interval
 import java.util.*;
 
 // q is insert the intervals in between and merge them
@@ -8,6 +7,7 @@ import java.util.*;
 // 2. merge the intervals 
 // 3. add remaining intervals at last
 
+// 57. Insert Interval
 public class Leetcode57 {
 
     // tc is o(n) and sc is o(n)

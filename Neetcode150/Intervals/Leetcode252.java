@@ -14,6 +14,7 @@ class Interval {
 
 // q is just check can we attend meetings or not
 // a is check curr start time < prev end time then he cannot so return false
+
 // 252. Meeting Rooms
 public class Leetcode252 {
 
