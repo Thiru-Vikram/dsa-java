@@ -11,8 +11,6 @@ public class Leetcode435 {
 
     // tc is o(n log n) sc is o(n)
     public static int eraseOverlapIntervals(int[][] intervals) {
-
-        int n = intervals.length;
         int ans = 0;
 
         Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
