@@ -46,6 +46,7 @@ public class Main {
 		return odd.size() == even.size() ? odd.size() : max;
 	}
 
+	// check number is prime or not.
 	public static boolean isPrime(int n) {
 		if (n <= 1)
 			return false;
@@ -57,6 +58,37 @@ public class Main {
 			if (n % i == 0)
 				return false;
 		}
+		return true;
+	}
+
+	// print primes in range
+	public static void printPrimes(int n) {
+
+		for (int i = 0; i <= n; i++) {
+			if (isPrime(i)) {
+				System.out.print(i + " ");
+			}
+		}
+	}
+
+	// check the anagram of a given string.
+	public static boolean isAnagram(String s1, String s2) {
+
+		if (s1.length() != s2.length())
+			return false;
+
+		int[] count = new int[26];
+
+		for (int i = 0; i < s1.length(); i++) {
+			count[s1.charAt(i) - 'a']++;
+			count[s2.charAt(i) - 'a']--;
+		}
+
+		for (int x : count) {
+			if (x != 0)
+				return false;
+		}
+
 		return true;
 	}
 
@@ -317,6 +349,73 @@ public class Main {
 		System.out.print(pq.peek());
 	}
 
+	// finding single missing number using xor
+	// why xor? same val gives 0 the remaining stays in var return it.
+	public static int findMissingNumber(int[] arr) {
+
+		int n = arr.length + 1;
+		int xor = 0;
+
+		// XOR numbers from 1 to n
+		for (int i = 1; i <= n; i++) {
+			xor ^= i;
+		}
+
+		// XOR array elements
+		for (int num : arr) {
+			xor ^= num;
+		}
+
+		return xor;
+	}
+
+	// reverse the string
+	public static String reverseString(String str) {
+
+		char[] arr = str.toCharArray();
+
+		int left = 0;
+		int right = arr.length - 1;
+
+		while (left < right) {
+
+			char temp = arr[left];
+			arr[left] = arr[right];
+			arr[right] = temp;
+
+			left++;
+			right--;
+		}
+
+		return new String(arr);
+	}
+
+	// binary search
+	public static int binarySearch(int[] arr, int target) {
+
+		int left = 0;
+		int right = arr.length - 1;
+
+		while (left <= right) {
+
+			int mid = left + (right - left) / 2;
+
+			if (arr[mid] == target) {
+				return mid;
+			}
+
+			else if (arr[mid] < target) {
+				left = mid + 1;
+			}
+
+			else {
+				right = mid - 1;
+			}
+		}
+
+		return -1;
+	}
+
 	public static void generateSubStrings(String a) {
 		int n = a.length();
 		for (int i = 0; i < n; i++) {
@@ -411,6 +510,8 @@ public class Main {
 		 * System.out.println(Arrays.toString(ar));
 		 * }
 		 */
+
+		printPrimes(20);
 
 	}
 
