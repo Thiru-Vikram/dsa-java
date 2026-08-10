@@ -100,6 +100,55 @@ class Code {
         return ans;
     }
 
+    // brute force tc is o(n) sc is o(1)
+    public static int longestSubarrayWithAbsDiff(int[] arr, int limit) {
+
+        int n = arr.length;
+
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+
+            int cnt = 1;
+            for (int j = i + 1; j < n; j++) {
+
+                int val = Math.abs(arr[j - 1] - arr[j]);
+
+                if (val <= limit) {
+                    cnt++;
+                } else {
+                    break;
+                }
+
+            }
+            ans = Math.max(cnt, ans);
+        }
+
+        return ans;
+    }
+
+    // optimal sol tc is o(n) sc is o(1) two pointers
+    public static int longestSubarrayWithAbsDiff2(int[] arr, int limit) {
+
+        int n = arr.length;
+        if (n == 0)
+            return 0;
+
+        int ans = 0;
+        int left = 0;
+        for (int right = 1; right < n; right++) {
+
+            int val = Math.abs(arr[right - 1] - arr[right]);
+
+            if (val > limit)
+                left = right;
+
+            ans = Math.max(ans, right - left + 1);
+
+        }
+
+        return ans;
+    }
+
     public static void main(String[] args) {
 
         int[][] grid = {
