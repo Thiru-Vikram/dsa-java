@@ -149,6 +149,72 @@ class Code {
         return ans;
     }
 
+    // "I use dynamic programming based on the last character. I maintain three
+    // states representing the number of valid strings ending in A, B, and C. A
+    // cannot follow A, and B cannot follow C. Therefore, the transitions are newA =
+    // dpB + dpC, newB = dpA + dpB, and newC = dpA + dpB + dpC. I iterate N times
+    // and take the sum of the three states. The time complexity is O(N) and the
+    // space complexity is O(1)."
+    public static int countStrings(int n) {
+
+        long MOD = 1000000007;
+
+        long dpA = 1;
+        long dpB = 1;
+        long dpC = 1;
+
+        for (int i = 2; i <= n; i++) {
+
+            long newA = (dpB + dpC) % MOD;
+            long newB = (dpA + dpB) % MOD;
+            long newC = (dpA + dpB + dpC) % MOD;
+
+            dpA = newA;
+            dpB = newB;
+            dpC = newC;
+        }
+
+        return (int) ((dpA + dpB + dpC) % MOD);
+    }
+
+    // tc is o(t * m) sc is o(t + m)
+    public static int standingPassengerKm(int[][] arr, int c) {
+
+        int t = arr.length;
+
+        int maxLen = Integer.MIN_VALUE;
+
+        // Find maximum location
+        for (int i = 0; i < t; i++) {
+            maxLen = Math.max(maxLen, arr[i][2]);
+        }
+
+        // res[i] = passengers on segment i -> i+1
+        int[] res = new int[maxLen];
+
+        for (int i = 0; i < t; i++) {
+
+            int p = arr[i][0];
+            int from = arr[i][1];
+            int to = arr[i][2];
+
+            for (int j = from - 1; j < to - 1; j++) {
+                res[j] += p;
+            }
+        }
+
+        int ans = 0;
+
+        for (int i = 0; i < maxLen - 1; i++) {
+
+            if (res[i] > c) {
+                ans += res[i] - c;
+            }
+        }
+
+        return ans;
+    }
+
     public static void main(String[] args) {
 
         int[][] grid = {
