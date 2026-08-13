@@ -1,3 +1,4 @@
+import java.util.*;
 
 class Code {
 
@@ -213,6 +214,33 @@ class Code {
         }
 
         return ans;
+    }
+
+    public static int minTotalTravelCost(int[] a, int[] b) {
+
+        int totalEmployee = a.length;
+        int n = totalEmployee / 2;
+
+        int[] diff = new int[totalEmployee];
+        int totalCost = 0;
+
+        for (int i = 0; i < totalEmployee; i++) {
+
+            int bCost = Math.min(a[i], b[i]) + b[i];
+
+            totalCost += bCost;
+
+            diff[i] = a[i] - bCost;
+
+        }
+
+        Arrays.sort(diff);
+
+        for (int i = 0; i < n; i++) {
+            totalCost += diff[i];
+        }
+
+        return totalCost;
     }
 
     public static void main(String[] args) {
