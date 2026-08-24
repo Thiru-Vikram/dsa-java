@@ -28,24 +28,6 @@ public class Main {
 		}
 	}
 
-	public static int splitArray(int[] arr) {
-		ArrayList<Integer> odd = new ArrayList<>();
-		ArrayList<Integer> even = new ArrayList<>();
-
-		for (int i = 0; i < arr.length; i++) {
-			int digit = arr[i];
-			if (digit % 2 == 0) {
-				even.add(digit);
-			} else {
-				odd.add(digit);
-			}
-		}
-
-		int max = Math.max(odd.size(), even.size());
-
-		return odd.size() == even.size() ? odd.size() : max;
-	}
-
 	// check number is prime or not.
 	public static boolean isPrime(int n) {
 		if (n <= 1)
@@ -71,190 +53,7 @@ public class Main {
 		}
 	}
 
-	// check the anagram of a given string.
-	public static boolean isAnagram(String s1, String s2) {
-
-		if (s1.length() != s2.length())
-			return false;
-
-		int[] count = new int[26];
-
-		for (int i = 0; i < s1.length(); i++) {
-			count[s1.charAt(i) - 'a']++;
-			count[s2.charAt(i) - 'a']--;
-		}
-
-		for (int x : count) {
-			if (x != 0)
-				return false;
-		}
-
-		return true;
-	}
-
-	// 12 factors is 1,2,3,6,12 here primes are 2, 3
-	// by using prime numbers u need to multiply to get that number
-	// cause 2 * 2 * 3 = 12 this is called factorization
-	public static List<Integer> primeFactors(int[] arr) {
-		int n = arr.length;
-		ArrayList<Integer> primeFactors = new ArrayList<>();
-		for (int num : arr) {
-
-			// keep on divide by 2 if divides add to result and check again
-			while (num % 2 == 0) {
-				primeFactors.add(2);
-				num /= 2;
-			}
-
-			// now do that same for all other prime numbers
-			for (int i = 3; i * i <= num; i += 2) {
-				while (num % i == 0) {
-					primeFactors.add(i);
-					num /= i;
-				}
-			}
-
-			if (num > 2)
-				primeFactors.add(num);
-		}
-
-		return primeFactors;
-	}
-
-	private static int precedence(char ch) {
-		if (ch == '+' || ch == '-') {
-			return 1;
-		} else if (ch == '*' || ch == '/') {
-			return 2;
-		} else if (ch == '^') {
-			return 3;
-		}
-		return -1;
-	}
-
-	public static String toPostFix(String str) {
-
-		StringBuilder sb = new StringBuilder();
-		Stack<Character> st = new Stack<>();
-
-		for (char ch : str.toCharArray()) {
-
-			if (Character.isLetterOrDigit(ch)) {
-				sb.append(ch);
-			} else if (ch == '(') {
-				st.push(ch);
-			} else if (ch == ')') {
-
-				while (!st.isEmpty() && st.peek() != '(') {
-					sb.append(st.pop());
-				}
-				st.pop();
-			} else {
-				while (!st.isEmpty() && precedence(ch) <= precedence(st.peek())) {
-					sb.append(st.pop());
-				}
-				st.push(ch);
-			}
-		}
-
-		while (!st.isEmpty()) {
-			sb.append(st.pop());
-		}
-		return sb.toString();
-	}
-
-	// post fix evalution
-	public static int postfixEvalution(String str) {
-
-		Stack<Integer> st = new Stack<>();
-
-		for (char ch : str.toCharArray()) {
-
-			if (Character.isDigit(ch)) {
-				st.push(ch - '0');
-			} else {
-
-				int b = st.pop();
-				int a = st.pop();
-
-				switch (ch) {
-					case '+':
-						st.push(a + b);
-						break;
-					case '-':
-						st.push(a - b);
-						break;
-					case '*':
-						st.push(a * b);
-						break;
-					case '/':
-						st.push(a / b);
-						break;
-					default:
-						break;
-				}
-			}
-		}
-		return st.pop();
-	}
-
-	// for prefix evalution iterate from right to left
-	public static int prefixEvalution(String str) {
-
-		Stack<Integer> st = new Stack<>();
-
-		for (int i = str.length() - 1; i >= 0; i--) {
-			char ch = str.charAt(i);
-			if (Character.isDigit(str.charAt(i))) {
-				st.push(str.charAt(i) - '0');
-			} else {
-
-				int b = st.pop();
-				int a = st.pop();
-
-				switch (ch) {
-					case '+':
-						st.push(a + b);
-						break;
-					case '-':
-						st.push(a - b);
-						break;
-					case '*':
-						st.push(a * b);
-						break;
-					case '/':
-						st.push(a / b);
-						break;
-					default:
-						break;
-				}
-			}
-		}
-		return st.pop();
-	}
-
-	public static String toPreFix(String str) {
-
-		// 1. reverse given expre
-		StringBuilder reversed = new StringBuilder(str).reverse();
-
-		// 2. swap the brackets
-		for (int i = 0; i < reversed.length(); i++) {
-			if (reversed.charAt(i) == '(') {
-				reversed.setCharAt(i, ')');
-			} else if (reversed.charAt(i) == ')') {
-				reversed.setCharAt(i, '(');
-			}
-		}
-
-		// 3. convert it into postfix
-		StringBuilder sb = new StringBuilder();
-		String ans = toPostFix(reversed.toString());
-		sb.append(ans);
-
-		return sb.reverse().toString();
-	}
-
+	// to find gcd or hcf of two numbers
 	public static int gcd(int a, int b) {
 		while (b != 0) {
 			int temp = b;
@@ -264,11 +63,13 @@ public class Main {
 		return a;
 	}
 
+	// to find lcm of two numbers
 	public static int lcm(int a, int b) {
 		int ans = (a * b) / gcd(a, b);
 		return ans;
 	}
 
+	// to print nth fibo number
 	public static void fibonacci(int n) {
 		if (n <= 0)
 			return;
