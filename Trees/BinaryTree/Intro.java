@@ -318,6 +318,35 @@ public class Intro {
         
     }
 
+    // print all paths from root to leaf
+    // bt - tc is o(n log n) sc is o(log n)
+    // skewed tree - tc is o(n) sc is o(n)
+    public static List<List<Integer>> pathToLeaf(Node root) {
+        
+        List<List<Integer>> allPaths = new ArrayList<>();
+        List<Integer> currPath = new ArrayList<>();
+        helper(root, currPath, allPaths);
+        return allPaths;
+    }
+    private static void helper(Node root, List<Integer> currPath, List<List<Integer>> allPaths) {
+        
+        if(root == null) return;
+        
+        currPath.add(root.val);
+
+        // found one path, we are in leaf node so add currpath to all path
+        if(root.left == null && root.right == null) {
+            allPaths.add(new ArrayList<>(currPath));
+        } else { // go traverse
+            helper(root.left, currPath, allPaths);
+            helper(root.right, currPath, allPaths);
+        }
+
+        // now remove all ele from curr path so need to 
+        // start again from root to search next path 
+        currPath.remove(currPath.size() - 1); // backtracking
+    }
+
     public static void main(String[] args) {
 
     }
