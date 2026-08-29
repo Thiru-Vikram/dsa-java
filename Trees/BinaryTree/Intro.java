@@ -272,6 +272,52 @@ public class Intro {
         return ans;
     }
 
+    // left view of BT only ele from left most side. Recursive (DFS) — Recommended (Space-efficient)
+    // Traverse the tree using Preorder Traversal (Root --> Left --> Right) while keeping track of the current level and the maximum level reached so far. 
+    // Since we visit the left child first, the first node encountered at a new level will be the leftmost node.
+    // tc is o(n) , sc is o(h) auxiliary stack space, where h means height of the tree
+    public static List<Integer> leftView(Node root) {
+        
+        ArrayList<Integer> ans = new ArrayList<>();
+        solve(root, 0, ans);
+        return ans;
+    }
+    private static void solve(Node root, int level, List<Integer> ans) {
+        
+        if(root == null) return;
+        // at each level u add only one ele, ans size is used here
+        // ex:- at level 1 ele now at level to one ele, ans size = level
+        if(level == ans.size()) {
+            ans.add(root.val);
+        }
+
+        // move left first and right
+        solve(root.left, level+1, ans); 
+        solve(root.right, level+1, ans);
+    }
+
+    // same as leftview, here move right first and left
+    public static List<Integer> rightView(Node root) {
+        
+        ArrayList<Integer> ans = new ArrayList<>();
+        solve(root, 0, ans);
+        return ans;
+    }
+    private static void solve2(Node root, int level, List<Integer> ans) {
+        
+        if(root == null) return;
+        // at each level u add only one ele, ans size is used here
+        // ex:- at level 1 ele now at level to one ele, ans size = level
+        if(level == ans.size()) {
+            ans.add(root.val);
+        }
+
+        // move right first and left
+        solve2(root.right, level+1, ans);
+        solve2(root.left, level+1, ans);
+        
+    }
+
     public static void main(String[] args) {
 
     }
