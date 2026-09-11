@@ -272,6 +272,81 @@ public class Intro {
         return ans;
     }
 
+    // left view of BT only ele from left most side. Recursive (DFS) — Recommended (Space-efficient)
+    // Traverse the tree using Preorder Traversal (Root --> Left --> Right) while keeping track of the current level and the maximum level reached so far. 
+    // Since we visit the left child first, the first node encountered at a new level will be the leftmost node.
+    // tc is o(n) , sc is o(h) auxiliary stack space, where h means height of the tree
+    public static List<Integer> leftView(Node root) {
+        
+        ArrayList<Integer> ans = new ArrayList<>();
+        solve(root, 0, ans);
+        return ans;
+    }
+    private static void solve(Node root, int level, List<Integer> ans) {
+        
+        if(root == null) return;
+        // at each level u add only one ele, ans size is used here
+        // ex:- at level 1 ele now at level to one ele, ans size = level
+        if(level == ans.size()) {
+            ans.add(root.val);
+        }
+
+        // move left first and right
+        solve(root.left, level+1, ans); 
+        solve(root.right, level+1, ans);
+    }
+
+    // same as leftview, here move right first and left
+    public static List<Integer> rightView(Node root) {
+        
+        ArrayList<Integer> ans = new ArrayList<>();
+        solve(root, 0, ans);
+        return ans;
+    }
+    private static void solve2(Node root, int level, List<Integer> ans) {
+        
+        if(root == null) return;
+        // at each level u add only one ele, ans size is used here
+        // ex:- at level 1 ele now at level to one ele, ans size = level
+        if(level == ans.size()) {
+            ans.add(root.val);
+        }
+
+        // move right first and left
+        solve2(root.right, level+1, ans);
+        solve2(root.left, level+1, ans);
+        
+    }
+
+    // print all paths from root to leaf
+    // bt - tc is o(n log n) sc is o(log n)
+    // skewed tree - tc is o(n) sc is o(n)
+    public static List<List<Integer>> pathToLeaf(Node root) {
+        
+        List<List<Integer>> allPaths = new ArrayList<>();
+        List<Integer> currPath = new ArrayList<>();
+        helper(root, currPath, allPaths);
+        return allPaths;
+    }
+    private static void helper(Node root, List<Integer> currPath, List<List<Integer>> allPaths) {
+        
+        if(root == null) return;
+        
+        currPath.add(root.val);
+
+        // found one path, we are in leaf node so add currpath to all path
+        if(root.left == null && root.right == null) {
+            allPaths.add(new ArrayList<>(currPath));
+        } else { // go traverse
+            helper(root.left, currPath, allPaths);
+            helper(root.right, currPath, allPaths);
+        }
+
+        // now remove all ele from curr path so need to 
+        // start again from root to search next path 
+        currPath.remove(currPath.size() - 1); // backtracking
+    }
+
     public static void main(String[] args) {
 
     }

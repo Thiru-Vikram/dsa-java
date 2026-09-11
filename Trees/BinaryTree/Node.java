@@ -185,12 +185,15 @@ public class Node {
 
             for (int i = 0; i < len; i++) {
                 Node node = q.poll();
+                // check children and push to q for next level
                 if (node.left != null) {
                     q.offer(node.left);
                 }
+                // check children for right node and push to q
                 if (node.right != null) {
                     q.offer(node.right);
                 }
+                // curr q is curr level so add this ele to list
                 subList.add(node.val);
             }
             ans.add(subList);
