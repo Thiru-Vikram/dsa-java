@@ -1,4 +1,11 @@
-package DP;
+import java.util.*;
+
+// Top → Bottom
+// Recursionn --> 1 → 0 --> Starts from the destination and recursively goes backward
+// Top → Bottom
+// Memoizationn --> 1 → 0 --> Same recursion direction, but stores already-computed states
+// Bottom → Top
+// Tabulation --> 0 → n-1 --> Starts from the base case and builds the answer forward
 
 class Leetcode70 {
     // tc is o(n) and sc is o(1).
