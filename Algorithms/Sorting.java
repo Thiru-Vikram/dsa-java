@@ -80,8 +80,10 @@ public class Sorting {
             right++;
         }
         // low = 0, high is n-1, add ans in arr
+        // i - low normalizes the offset. It translates the original array index i
+        // (e.g.4, 5, 6) back to temp's 0-based index (e.g., 0, 1, 2).
         for (int i = low; i <= high; i++) {
-            arr[i] = temp.get(i - low); // it gives 1 idx
+            arr[i] = temp.get(i - low); // it gives 0 idx
         }
     }
 
@@ -124,6 +126,8 @@ public class Sorting {
         if (low < high) {
 
             int pIndex = partition(array, low, high);
+            // here we r taking pidx -1 and pidx+1 cause at
+            // every idx pivot is at right pos so we split before and after that
             qS(array, low, pIndex - 1); // left arr
             qS(array, pIndex + 1, high); // right arr
         }
@@ -131,20 +135,21 @@ public class Sorting {
 
     private static int partition(int[] array, int low, int high) {
 
-        // arr fst ele as pivot
+        // taking arr fst ele as pivot
         int pivot = array[low];
         int i = low;
         int j = high;
 
         while (i < j) {
-            // finding next element > pivot stops at greater ele
+            // i moves right side finds smallest ele at right
             while (array[i] <= pivot && i <= high - 1) {
                 i++;
             }
-            // finding next element <= pivot stops at smaller ele
+            // j moves left and finds larger ele at left
             while (array[j] > pivot && j >= low + 1) {
                 j--;
             }
+
             // swapping small to left and large to right
             if (i < j) {
                 int temp = array[i];
@@ -153,12 +158,15 @@ public class Sorting {
             }
         }
 
-        // swapping low pivot to crt place
+        // now after swapping we need to place the pivot ele at between them
+        // this placing pivot at act pos
+        // low idx is we taking as pivot and j idx will be at crt pos where the pivot
+        // should be so we r swapping with that
         int temp = array[low];
         array[low] = array[j];
         array[j] = temp;
 
-        return j; // partition ele
+        return j; // return that pivot idx for next iteration
     }
 
     public static void main(String[] args) {
