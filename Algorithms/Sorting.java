@@ -5,28 +5,32 @@ import java.util.*;
 public class Sorting {
 
     // tc is o(n^2) and sc is o(1).
-    public static int[] selectionSort(int[] arr) {
+    // find smallest ele idx and swap it
+    // at each interation the smallest ele is swapped with the unsorted first ele
+    public static void selectionSort(int[] arr) {
         int n = arr.length;
 
-        for (int i = 0; i < n - 1; i++) { // can also stop at n-1
-            int minIdx = i; // Start with current position
+        for (int i = 0; i < n - 1; i++) {
+            // Assume the current index holds the minimum value
+            int minIdx = i;
 
+            // Find the index of the minimum element in the remaining unsorted array
             for (int j = i + 1; j < n; j++) {
                 if (arr[j] < arr[minIdx]) {
-                    minIdx = j;
+                    minIdx = j; // Update minIdx if smaller element found
                 }
             }
 
-            // Swap AFTER finding the minimum (outside inner loop)
-            int temp = arr[i];
-            arr[i] = arr[minIdx];
-            arr[minIdx] = temp;
+            // Swap the found minimum element with the first element of unsorted part
+            int temp = arr[minIdx];
+            arr[minIdx] = arr[i];
+            arr[i] = temp;
         }
-
-        return arr;
     }
 
     // tc is o(n^2) and sc is o(1).
+    // at every iteration j check j+1 ele if is greater swap it
+    // at end of each interation the largest num will be at end
     public static int[] bubbleSort(int[] arr) {
 
         int n = arr.length;
